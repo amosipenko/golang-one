@@ -23,7 +23,6 @@ func main() {
 			if n > 1 {
 				primes = append(primes, 2) // 2 сразу добавляем как простое
 				nSqrt := int(math.Sqrt(float64(n)))
-				fmt.Println(nSqrt)
 				for i := 3; i <= n; i++ {
 					// нужно проверить, что числа до N не делятся на предыдущие простые числа
 					isPrime := true
