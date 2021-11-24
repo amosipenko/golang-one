@@ -32,17 +32,21 @@ func main() {
 
 		switch operation {
 		case "+":
-			fmt.Println(a + b)
+			fmt.Printf("%.3g\n", a+b)
 		case "-":
-			fmt.Println(a - b)
+			fmt.Printf("%.3g\n", a-b)
 		case "*":
-			fmt.Println(a * b)
+			fmt.Printf("%.3g\n", a*b)
 		case "/":
-			fmt.Println(a / b)
+			if b == 0 {
+				fmt.Println("Нельзя делить на 0")
+			} else {
+				fmt.Printf("%.3g\n", a/b)
+			}
 		case "%":
 			fmt.Println(int(a) % int(b))
 		case "^":
-			fmt.Println(math.Pow(a, b))
+			fmt.Printf("%.3g\n", math.Pow(a, b))
 		case "!":
 			if a >= 0 {
 				fmt.Println(factorial(int64(a)))
@@ -50,7 +54,7 @@ func main() {
 				fmt.Println("Для расчета факториала введите положительное число")
 			}
 		case "#":
-			fmt.Println(math.Sqrt(b))
+			fmt.Printf("%.3g\n", math.Sqrt(b))
 		case ">":
 			fmt.Println(a > b)
 		case "<":
