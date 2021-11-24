@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-
 	var n int
 	var primes []int
 	var steps int

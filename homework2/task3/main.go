@@ -5,9 +5,7 @@ import (
 )
 
 func main() {
-
 	var a uint
-	var h, d, u uint
 	fmt.Println("Расчет составных частей числа.")
 
 	for true {
@@ -18,6 +16,7 @@ func main() {
 		} else if a < 100 || a > 999 {
 			fmt.Println("Введено неправильное число.")
 		} else {
+			var h, d, u uint
 			u = a % 10
 			d = (a%100 - u) / 10
 			h = (a - d*10 - u) / 100
