@@ -70,30 +70,33 @@ func calcArgumentsFromString(str string) (float64, string, float64) {
 	var aStr, bStr, oper string
 	for i := 0; i < len(str); i++ {
 		// Если встретили цифру или точку, то это аргумент
-		if str[i] >= 48 && str[i] <= 57 || str[i] == 46 {
+		switch {
+		case str[i] >= '0' && str[i] <= '9' || str[i] == '.':
 			if oper == "" {
 				aStr += string(str[i])
 			} else {
 				bStr += string(str[i])
 			}
-		} else if str[i] == 45 {
+		case str[i] == '-':
 			// отдельно обрабатываем минус, т.к. он может относиться к аргументу или быть операцией
-			if aStr == "" && oper == "" {
+			switch {
+			case aStr == "" && oper == "":
 				// еще нет первого аргумента и операции - значит это минус в первом аргументе
 				aStr += string(str[i])
-			} else if oper == "" {
+			case oper == "":
 				// еще нет операции - значит это минус в операции
 				oper += string(str[i])
-			} else {
+			default:
 				// иначе это минус во втором аргументе
 				bStr += string(str[i])
 			}
-		} else if str[i] == 43 || str[i] == 42 || str[i] == 47 || str[i] == 37 || str[i] == 33 || str[i] == 94 || str[i] == 35 || str[i] == 60 || str[i] == 62 {
+		case str[i] == '+' || str[i] == '*' || str[i] == '/' || str[i] == '%' || str[i] == '!' || str[i] == '^' || str[i] == '#' || str[i] == '<' || str[i] == '>':
 			// Если один из допустимых символов операции, то это операция: + || * || / || % || ! || ^ || # || < || >
 			oper += string(str[i])
-		} else if str[i] != 20 {
+		case str[i] != ' ':
 			// пробел еще допускаем и игнорим, а остальное не простим
 			panic("Некорректная операция")
+
 		}
 	}
 
