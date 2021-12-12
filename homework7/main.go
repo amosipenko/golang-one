@@ -3,22 +3,23 @@ package main
 import (
 	"fmt"
 	"io"
+	"math"
 )
 
 type myByte []byte
 
 func (myB myByte) Read(p []byte) (n int, err error) {
-	var i int
-	for i = 0; i < len(myB); i++ {
+	count := int(math.Min(float64(len(p)), float64(len(myB))))
+	for i := 0; i < count; i++ {
 		p[i] = myB[i]
 	}
 	// Возврат err = nil уходит в бесконечный цикл, нужен io.EOF
-	return i, io.EOF
+	return count, io.EOF
 }
 
 func (myB *myByte) Write(p []byte) (n int, err error) {
 	*myB = append(*myB, p...)
-	return len(*myB), nil
+	return len(p), nil
 }
 
 func main() {
