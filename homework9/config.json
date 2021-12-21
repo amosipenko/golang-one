@@ -1,0 +1,11 @@
+{
+  "port": "8081",
+  "db_url": "MSSQL://user:password@localhost:5432/petstore?sslmode=disable",
+  "jaeger_url": "http://jaeger:16681",
+  "sentry_url": "http://sentry:9001",
+  "kafka_broker": "kafka:9091",
+  "some_app_id": "testid_1",
+  "some_app_key": "testkey_1",
+  "users": [{"name":"Sam", "id": 1}, 
+  {"name":"Bob", "id": 2}]
+}
