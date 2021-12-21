@@ -32,7 +32,6 @@ func (p *Port) Decode(value string) error {
 	portInt, err := strconv.Atoi(value)
 	if err != nil {
 		return fmt.Errorf("Не удалось преобразовать порт в Int: %w", err)
-		return err
 	}
 	*p = Port(portInt)
 	return nil
