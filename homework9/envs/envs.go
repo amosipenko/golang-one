@@ -31,7 +31,7 @@ type UrlType string
 func (p *Port) Decode(value string) error {
 	portInt, err := strconv.Atoi(value)
 	if err != nil {
-		fmt.Errorf("Не удалось преобразовать порт в Int: %w", err)
+		return fmt.Errorf("Не удалось преобразовать порт в Int: %w", err)
 		return err
 	}
 	*p = Port(portInt)
@@ -41,8 +41,7 @@ func (p *Port) Decode(value string) error {
 func (u *UrlType) Decode(value string) error {
 	_, err := url.ParseRequestURI(value)
 	if err != nil {
-		fmt.Errorf("Не удалось распознать URL: %w", err)
-		return err
+		return fmt.Errorf("Не удалось распознать URL: %w", err)
 	}
 	*u = UrlType(value) // // сохраним исходное значение URL, если парсинг прошел успешно
 	return nil
@@ -51,7 +50,7 @@ func (u *UrlType) Decode(value string) error {
 func (c *Config) Read() error {
 	err := envconfig.Process("", c)
 	if err != nil {
-		fmt.Errorf("Не удалось прочитать конфигурацию из переменных окружения: %w", err)
+		err = fmt.Errorf("Не удалось прочитать конфигурацию из переменных окружения: %w", err)
 	}
 	return err
 }

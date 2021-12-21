@@ -37,13 +37,11 @@ func (p *Port) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var portStr string
 	err := unmarshal(&portStr)
 	if err != nil {
-		fmt.Errorf("Не удалось прочитать поле с типом Port: %w", err)
-		return err
+		return fmt.Errorf("Не удалось прочитать поле с типом Port: %w", err)
 	}
 	portInt, err := strconv.Atoi(portStr)
 	if err != nil {
-		fmt.Errorf("Не удалось преобразовать порт в Int: %w", err)
-		return err
+		return fmt.Errorf("Не удалось преобразовать порт в Int: %w", err)
 	}
 	*p = Port(portInt)
 	return nil
@@ -53,13 +51,11 @@ func (u *UrlType) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var urlString string
 	err := unmarshal(&urlString)
 	if err != nil {
-		fmt.Errorf("Не удалось прочитать поле с типом UrlType: %w", err)
-		return err
+		return fmt.Errorf("Не удалось прочитать поле с типом UrlType: %w", err)
 	}
 	_, err = url.ParseRequestURI(urlString)
 	if err != nil {
-		fmt.Errorf("Не удалось распознать URL: %w", err)
-		return err
+		return fmt.Errorf("Не удалось распознать URL: %w", err)
 	}
 	*u = UrlType(urlString) // сохраним исходное значение URL, если парсинг прошел успешно
 	return nil
@@ -68,13 +64,12 @@ func (u *UrlType) UnmarshalYAML(unmarshal func(interface{}) error) error {
 func (c *Config) Read() error {
 	data, err := os.ReadFile("config.yml")
 	if err != nil {
-		fmt.Errorf("Не удалось прочитать yaml-файл: %w", err)
-		return err
+		return fmt.Errorf("Не удалось прочитать yaml-файл: %w", err)
 	}
 
 	err = yaml.Unmarshal(data, c)
 	if err != nil {
-		fmt.Errorf("Не удалось прочитать конфигурацию из yaml-файла: %w", err)
+		err = fmt.Errorf("Не удалось прочитать конфигурацию из yaml-файла: %w", err)
 	}
 	return err
 }

@@ -37,8 +37,7 @@ type UrlType string
 func (p *Port) UnmarshalJSON(b []byte) error {
 	portInt, err := strconv.Atoi(strings.Trim(string(b), `""`))
 	if err != nil {
-		fmt.Errorf("Не удалось преобразовать порт в Int: %w", err)
-		return err
+		return fmt.Errorf("Не удалось преобразовать порт в Int: %w", err)
 	}
 	*p = Port(portInt)
 	return nil
@@ -48,8 +47,7 @@ func (u *UrlType) UnmarshalJSON(b []byte) error {
 	urlString := strings.Trim(string(b), `""`)
 	_, err := url.ParseRequestURI(urlString)
 	if err != nil {
-		fmt.Errorf("Не удалось распознать URL: %w", err)
-		return err
+		return fmt.Errorf("Не удалось распознать URL: %w", err)
 	}
 	*u = UrlType(urlString) // сохраним исходное значение URL, если парсинг прошел успешно
 	return nil
@@ -58,13 +56,12 @@ func (u *UrlType) UnmarshalJSON(b []byte) error {
 func (c *Config) Read() error {
 	data, err := os.ReadFile("config.json")
 	if err != nil {
-		fmt.Errorf("Не удалось прочитать json-файл: %w", err)
-		return err
+		return fmt.Errorf("Не удалось прочитать json-файл: %w", err)
 	}
 
 	err = json.Unmarshal(data, c)
 	if err != nil {
-		fmt.Errorf("Не удалось прочитать конфигурацию из json-файла: %w", err)
+		err = fmt.Errorf("Не удалось прочитать конфигурацию из json-файла: %w", err)
 	}
 	return err
 }
